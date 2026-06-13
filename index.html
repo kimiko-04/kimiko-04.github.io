@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mirza Haqimi — Work</title>
+  <meta name="description" content="Selected work by Mirza Haqimi Bin Suzani." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ---------- LIGHT (default) ---------- */
+    :root {
+      --paper:  #F4F2EC;
+      --ink:    #14130F;
+      --muted:  #6B6759;
+      --line:   #DAD6C9;
+      --accent: #E2452B;   /* EDIT: one hex re-themes both light & dark */
+      --frame-bg:#E4E0D6;
+      --frame-edge: rgba(0,0,0,.08);
+      --display:"Space Grotesk", system-ui, sans-serif;
+      --body:   "Inter", system-ui, sans-serif;
+      --mono:   "JetBrains Mono", ui-monospace, monospace;
+    }
+    /* ---------- DARK ---------- */
+    :root[data-theme="dark"] {
+      --paper:  #131210;
+      --ink:    #F2EFE7;
+      --muted:  #9A958A;
+      --line:   #2C2A24;
+      --frame-bg:#1E1C18;
+      --frame-edge: rgba(255,255,255,.08);
+    }
+
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body { background:var(--paper); color:var(--ink); font-family:var(--body); -webkit-font-smoothing:antialiased; transition:background .3s ease, color .3s ease; }
+    .page { max-width:1100px; margin:0 auto; padding:48px 28px 64px; }
+
+    /* ---------- masthead ---------- */
+    .top {
+      display:flex; justify-content:space-between; align-items:flex-start;
+      border-bottom:2px solid var(--ink); padding-bottom:18px; flex-wrap:wrap; gap:12px;
+    }
+    .top .meta { font-family:var(--mono); font-size:.74rem; letter-spacing:.08em; text-transform:uppercase; color:var(--muted); }
+    .top .meta b { color:var(--accent); }
+
+    /* theme toggle */
+    .theme-toggle {
+      font-family:var(--mono); font-size:.72rem; letter-spacing:.06em; text-transform:uppercase;
+      color:var(--muted); background:transparent; border:1px solid var(--line);
+      border-radius:999px; padding:7px 14px; cursor:pointer; display:inline-flex; align-items:center; gap:8px;
+      transition:border-color .2s, color .2s;
+    }
+    .theme-toggle:hover { color:var(--ink); border-color:var(--accent); }
+    .theme-toggle .dot { width:9px; height:9px; border-radius:50%; background:var(--accent); display:inline-block; }
+
+    .name {
+      font-family:var(--display); font-weight:700;
+      font-size:clamp(3.6rem, 18vw, 11rem);
+      line-height:.86; letter-spacing:-0.03em; margin:34px 0 0; text-transform:uppercase;
+    }
+    .tagline {
+      display:flex; justify-content:space-between; align-items:baseline;
+      margin-top:22px; padding-bottom:30px; border-bottom:1px solid var(--line); flex-wrap:wrap; gap:10px;
+    }
+    .tagline .role { font-family:var(--display); font-weight:500; font-size:clamp(1.1rem,3vw,1.6rem); }
+    .tagline .loc  { font-family:var(--mono); font-size:.8rem; color:var(--muted); }
+
+    .section-label {
+      font-family:var(--mono); font-size:.74rem; letter-spacing:.14em; text-transform:uppercase;
+      color:var(--accent); margin:50px 0 4px; display:flex; align-items:center; gap:.7em;
+    }
+    .section-label::after { content:""; flex:1; height:1px; background:var(--line); }
+
+    /* ---------- slideshow ---------- */
+    .slideshow { position:relative; }
+    .slideshow .frame img { opacity:0; transition:opacity .5s ease, transform .5s ease; }
+    .slideshow .frame img.active { opacity:1; }
+    .slide-dots {
+      display:flex; justify-content:center; gap:7px; margin-top:10px;
+    }
+    .slide-dots button {
+      width:7px; height:7px; border-radius:50%; border:none; padding:0;
+      background:var(--line); cursor:pointer; transition:background .2s;
+    }
+    .slide-dots button.active { background:var(--accent); }
+    .slide-arrow {
+      position:absolute; top:50%; transform:translateY(-50%); z-index:3;
+      background:color-mix(in srgb, var(--paper) 85%, transparent);
+      border:1px solid var(--line); color:var(--ink); border-radius:50%;
+      width:32px; height:32px; cursor:pointer; display:flex; align-items:center; justify-content:center;
+      font-size:.85rem; transition:border-color .2s, background .2s; line-height:1;
+    }
+    .slide-arrow:hover { border-color:var(--accent); }
+    .slide-arrow.prev { left:8px; }
+    .slide-arrow.next { right:8px; }
+
+    /* ---------- a single work ---------- */
+    .work {
+      display:grid; grid-template-columns:3fr 2fr; gap:40px; align-items:center;
+      padding:54px 0; border-bottom:1px solid var(--line);
+    }
+    .work:nth-child(even) { grid-template-columns:2fr 3fr; }
+    .work:nth-child(even) .media { order:2; }
+
+    .media { position:relative; }
+    .frame {
+      position:relative; aspect-ratio:4/3; overflow:hidden; border-radius:3px; background:var(--frame-bg);
+    }
+    .frame .ph {
+      position:absolute; inset:0; display:flex; align-items:center; justify-content:center;
+      background:linear-gradient(135deg, color-mix(in srgb, var(--accent) 24%, var(--paper)), color-mix(in srgb, var(--ink) 12%, var(--paper)));
+      color:var(--ink); font-family:var(--display); font-weight:700;
+      font-size:clamp(2rem,6vw,3.4rem); letter-spacing:-0.02em; opacity:.55;
+    }
+    .frame img {
+      position:absolute; inset:0; width:100%; height:100%; object-fit:cover;
+      display:block; z-index:1; transition:transform .5s ease;
+    }
+    .work:hover .frame img { transform:scale(1.03); }
+    .frame::after { content:""; position:absolute; inset:0; z-index:2; box-shadow:inset 0 0 0 1px var(--frame-edge); border-radius:3px; }
+
+    .info .idx { font-family:var(--mono); font-size:.78rem; color:var(--accent); letter-spacing:.06em; }
+    .info h3 { font-family:var(--display); font-weight:700; font-size:clamp(1.6rem,4vw,2.4rem); letter-spacing:-0.01em; margin:10px 0 16px; }
+    .info p  { color:var(--muted); font-size:1rem; max-width:48ch; }
+
+    .built { margin-top:24px; }
+    .built .lbl { font-family:var(--mono); font-size:.72rem; letter-spacing:.1em; text-transform:uppercase; color:var(--ink); display:block; margin-bottom:10px; }
+    .langs { display:flex; flex-wrap:wrap; gap:8px; }
+    .langs span {
+      font-family:var(--mono); font-size:.78rem; color:var(--accent);
+      background:color-mix(in srgb, var(--accent) 14%, var(--paper));
+      padding:6px 12px; border-radius:3px;
+    }
+    .info .view {
+      display:inline-block; margin-top:24px; font-family:var(--mono); font-size:.82rem;
+      color:var(--ink); text-decoration:none; border-bottom:2px solid var(--accent); padding-bottom:2px; transition:color .2s;
+    }
+    .info .view:hover { color:var(--accent); }
+
+    /* ---------- footer ---------- */
+    .foot {
+      margin-top:56px; padding-top:30px; border-top:2px solid var(--ink);
+      display:flex; justify-content:space-between; align-items:flex-end; flex-wrap:wrap; gap:18px;
+    }
+    .foot .lbl { font-family:var(--mono); font-size:.74rem; letter-spacing:.1em; text-transform:uppercase; color:var(--muted); margin-bottom:10px; }
+    .foot .ct a { font-family:var(--display); font-weight:600; font-size:clamp(1.3rem,4vw,2rem); color:var(--accent); text-decoration:none; border-bottom:2px solid transparent; transition:border-color .2s; }
+    .foot .ct a:hover { border-color:var(--accent); }
+    .foot .links { display:flex; gap:20px; }
+    .foot .links a { font-family:var(--mono); font-size:.82rem; color:var(--muted); text-decoration:none; transition:color .2s; }
+    .foot .links a:hover { color:var(--ink); }
+
+    .reveal { opacity:0; transform:translateY(18px); transition:opacity .7s ease, transform .7s ease; }
+    .reveal.in { opacity:1; transform:none; }
+
+    @media (max-width:680px){
+      .work { grid-template-columns:1fr; gap:24px; padding:40px 0; }
+      .work:nth-child(even) .media { order:0; }
+      .name { font-size:clamp(3rem,22vw,6rem); }
+    }
+    @media (prefers-reduced-motion:reduce){
+      .reveal{opacity:1;transform:none;transition:none}
+      .work:hover .frame img{transform:none}
+      body{transition:none}
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+
+    <!-- ===== masthead ===== -->
+    <div class="top">
+      <span class="meta">Selected Work <b>/ 2026</b></span>
+      <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+        <span class="dot"></span><span id="themeLabel">Dark</span>
+      </button>
+    </div>
+
+    <h1 class="name reveal">Mirza</h1>
+
+    <div class="tagline reveal">
+      <span class="role">Full-stack developer &amp; CS student.</span>
+      <span class="loc">Based in Banting, Selangor — open to internships</span>
+    </div>
+
+    <div class="section-label reveal">The works</div>
+
+    <!-- ===== WORK 01 ===== -->
+    <article class="work reveal">
+      <div class="media slideshow" id="slide-crop">
+        <div class="frame">
+          <span class="ph">CR</span>
+          <img src="crop-1.jpg" alt="CropAI – Dashboard" class="active" loading="lazy" onerror="this.style.display='none'">
+          <img src="crop-2.jpg" alt="CropAI – Model Performance" loading="lazy" onerror="this.style.display='none'">
+          <img src="crop-3.jpg" alt="CropAI – SHAP Explanation" loading="lazy" onerror="this.style.display='none'">
+          <img src="crop-4.jpg" alt="CropAI – Input Form" loading="lazy" onerror="this.style.display='none'">
+        </div>
+        <button class="slide-arrow prev" aria-label="Previous">&#8592;</button>
+        <button class="slide-arrow next" aria-label="Next">&#8594;</button>
+        <div class="slide-dots">
+          <button class="active" aria-label="Slide 1"></button>
+          <button aria-label="Slide 2"></button>
+          <button aria-label="Slide 3"></button>
+          <button aria-label="Slide 4"></button>
+        </div>
+      </div>
+      <div class="info">
+        <span class="idx">01 — 2025 / Present · Final Year Project</span>
+        <h3>Crop Recommendation System</h3>
+        <p>A full-stack web app that uses fine-tuned DistilBERT/BERT models to predict the most suitable crops based on soil and environmental data. Integrated SHAP to visualise which factors drove each prediction, giving users explainable AI insights alongside the recommendation.</p>
+        <div class="built">
+          <span class="lbl">Built with</span>
+          <div class="langs"><span>React</span><span>FastAPI</span><span>MongoDB</span><span>DistilBERT</span><span>SHAP</span><span>JWT</span></div>
+        </div>
+        <a class="view" href="https://github.com/kimiko-04" target="_blank" rel="noopener">View on GitHub ↗</a>
+      </div>
+    </article>
+
+    <!-- ===== WORK 02 ===== -->
+    <article class="work reveal">
+      <div class="media slideshow" id="slide-poke">
+        <div class="frame">
+          <span class="ph">PM</span>
+          <img src="poke-1.jpg" alt="Poke-Master – Chat & response" class="active" loading="lazy" onerror="this.style.display='none'">
+          <img src="poke-2.jpg" alt="Poke-Master – Pokémon stat comparison" loading="lazy" onerror="this.style.display='none'">
+          <img src="poke-3.jpg" alt="Poke-Master – Chat input UI" loading="lazy" onerror="this.style.display='none'">
+          <img src="poke-4.jpg" alt="Poke-Master – AI text analysis" loading="lazy" onerror="this.style.display='none'">
+        </div>
+        <button class="slide-arrow prev" aria-label="Previous">&#8592;</button>
+        <button class="slide-arrow next" aria-label="Next">&#8594;</button>
+        <div class="slide-dots">
+          <button class="active" aria-label="Slide 1"></button>
+          <button aria-label="Slide 2"></button>
+          <button aria-label="Slide 3"></button>
+          <button aria-label="Slide 4"></button>
+        </div>
+      </div>
+      <div class="info">
+        <span class="idx">02 — 2025 · Semester 5 Group Project</span>
+        <h3>Poke-Master</h3>
+        <p>An AI-powered Pokémon chatbot that answers natural language questions about any Pokémon, fetches live stats, types and sprites from PokeAPI, and remembers conversation history. Supports multiple languages through a clean Gradio interface.</p>
+        <div class="built">
+          <span class="lbl">Built with</span>
+          <div class="langs"><span>Python</span><span>Gradio</span><span>Google Gemini API</span><span>PokeAPI</span></div>
+        </div>
+        <a class="view" href="https://github.com/kimiko-04" target="_blank" rel="noopener">View on GitHub ↗</a>
+      </div>
+    </article>
+
+    <!-- ===== WORK 03 ===== -->
+    <article class="work reveal">
+      <div class="media slideshow" id="slide-buddy">
+        <div class="frame">
+          <span class="ph">BA</span>
+          <img src="buddy-1.jpg" alt="BuddyApp – Login" class="active" loading="lazy" onerror="this.style.display='none'">
+          <img src="buddy-2.jpg" alt="BuddyApp – Add Friend" loading="lazy" onerror="this.style.display='none'">
+          <img src="buddy-3.jpg" alt="BuddyApp – Search" loading="lazy" onerror="this.style.display='none'">
+          <img src="buddy-4.jpg" alt="BuddyApp – Graphs" loading="lazy" onerror="this.style.display='none'">
+        </div>
+        <button class="slide-arrow prev" aria-label="Previous">&#8592;</button>
+        <button class="slide-arrow next" aria-label="Next">&#8594;</button>
+        <div class="slide-dots">
+          <button class="active" aria-label="Slide 1"></button>
+          <button aria-label="Slide 2"></button>
+          <button aria-label="Slide 3"></button>
+          <button aria-label="Slide 4"></button>
+        </div>
+      </div>
+      <div class="info">
+        <span class="idx">03 — 2025 · Semester 5 Group Project</span>
+        <h3>BuddyApp</h3>
+        <p>An Android mobile app for managing a social friends list. Users can register, log in, and perform full CRUD operations on their contacts. Includes a reporting module that renders graphs and charts breaking down friends by gender and state.</p>
+        <div class="built">
+          <span class="lbl">Built with</span>
+          <div class="langs"><span>Java</span><span>XML</span><span>SQLite</span><span>Android Studio</span></div>
+        </div>
+        <a class="view" href="https://github.com/kimiko-04" target="_blank" rel="noopener">View on GitHub ↗</a>
+      </div>
+    </article>
+
+    <!-- ===== WORK 04 ===== -->
+    <article class="work reveal">
+      <div class="media slideshow" id="slide-ce">
+        <div class="frame">
+          <span class="ph">CE</span>
+          <img src="ce-01.jpg" alt="Course Exemption System – Title" class="active" loading="lazy" onerror="this.style.display='none'">
+          <img src="ce-02.jpg" alt="Login" loading="lazy" onerror="this.style.display='none'">
+          <img src="ce-03.jpg" alt="Sign In / Register" loading="lazy" onerror="this.style.display='none'">
+          <img src="ce-04.jpg" alt="Student Dashboard" loading="lazy" onerror="this.style.display='none'">
+          <img src="ce-05.jpg" alt="Apply UiTM Exemption" loading="lazy" onerror="this.style.display='none'">
+          <img src="ce-06.jpg" alt="Apply Non-UiTM (1)" loading="lazy" onerror="this.style.display='none'">
+          <img src="ce-07.jpg" alt="Apply Non-UiTM (2)" loading="lazy" onerror="this.style.display='none'">
+          <img src="ce-08.jpg" alt="View / Update Student Info" loading="lazy" onerror="this.style.display='none'">
+          <img src="ce-09.jpg" alt="Search Course" loading="lazy" onerror="this.style.display='none'">
+          <img src="ce-10.jpg" alt="View Exemption Applications" loading="lazy" onerror="this.style.display='none'">
+          <img src="ce-11.jpg" alt="Admin Dashboard" loading="lazy" onerror="this.style.display='none'">
+          <img src="ce-12.jpg" alt="Manage UiTM Exemptions" loading="lazy" onerror="this.style.display='none'">
+          <img src="ce-13.jpg" alt="Manage Non-UiTM Exemptions" loading="lazy" onerror="this.style.display='none'">
+          <img src="ce-14.jpg" alt="Manage Course Approval Rules" loading="lazy" onerror="this.style.display='none'">
+          <img src="ce-15.jpg" alt="Entity Relationship Diagram" loading="lazy" onerror="this.style.display='none'">
+        </div>
+        <button class="slide-arrow prev" aria-label="Previous">&#8592;</button>
+        <button class="slide-arrow next" aria-label="Next">&#8594;</button>
+        <div class="slide-dots">
+          <button class="active" aria-label="Slide 1"></button>
+          <button aria-label="Slide 2"></button>
+          <button aria-label="Slide 3"></button>
+          <button aria-label="Slide 4"></button>
+          <button aria-label="Slide 5"></button>
+          <button aria-label="Slide 6"></button>
+          <button aria-label="Slide 7"></button>
+          <button aria-label="Slide 8"></button>
+          <button aria-label="Slide 9"></button>
+          <button aria-label="Slide 10"></button>
+          <button aria-label="Slide 11"></button>
+          <button aria-label="Slide 12"></button>
+          <button aria-label="Slide 13"></button>
+          <button aria-label="Slide 14"></button>
+          <button aria-label="Slide 15"></button>
+        </div>
+      </div>
+      <div class="info">
+        <span class="idx">04 — 2025 · Semester 4 Group Project</span>
+        <h3>Course Exemption System</h3>
+        <p>A dynamic web application that lets students submit credit-exemption applications for courses completed at UiTM or external institutions, then track approval status in real time. Admins manage course lists, set per-student credit-hour limits, and configure auto-approval rules.</p>
+        <div class="built">
+          <span class="lbl">Built with</span>
+          <div class="langs"><span>PHP</span><span>HTML</span><span>CSS</span><span>JavaScript</span><span>MySQL</span></div>
+        </div>
+        <a class="view" href="https://github.com/kimiko-04" target="_blank" rel="noopener">View on GitHub ↗</a>
+      </div>
+    </article>
+
+    <!-- ===== WORK 05 ===== -->
+    <article class="work reveal">
+      <div class="media slideshow" id="slide-kn">
+        <div class="frame">
+          <span class="ph">KN</span>
+          <img src="kn-1.jpg" alt="Klasix Navigator – Landing Page" class="active" loading="lazy" onerror="this.style.display='none'">
+          <img src="kn-2.jpg" alt="Klasix Navigator – ERD" loading="lazy" onerror="this.style.display='none'">
+          <img src="kn-3.jpg" alt="Klasix Navigator – Flowchart Main System" loading="lazy" onerror="this.style.display='none'">
+          <img src="kn-4.jpg" alt="Klasix Navigator – Flowchart Customer" loading="lazy" onerror="this.style.display='none'">
+          <img src="kn-5.jpg" alt="Klasix Navigator – Flowchart Employee" loading="lazy" onerror="this.style.display='none'">
+        </div>
+        <button class="slide-arrow prev" aria-label="Previous">&#8592;</button>
+        <button class="slide-arrow next" aria-label="Next">&#8594;</button>
+        <div class="slide-dots">
+          <button class="active" aria-label="Slide 1"></button>
+          <button aria-label="Slide 2"></button>
+          <button aria-label="Slide 3"></button>
+          <button aria-label="Slide 4"></button>
+          <button aria-label="Slide 5"></button>
+        </div>
+      </div>
+      <div class="info">
+        <span class="idx">05 — 2024 · Semester 2 Group Project</span>
+        <h3>Klasix Navigator System</h3>
+        <p>A relational database system for a car dealership that replaces manual record-keeping. Manages vehicles, customers, employees, invoices, insurance and road tax through a fully normalised ERD. Custom SQL queries surface insights like expired road-tax alerts and automated salary calculations.</p>
+        <div class="built">
+          <span class="lbl">Built with</span>
+          <div class="langs"><span>Oracle SQL</span></div>
+        </div>
+        <a class="view" href="https://github.com/kimiko-04" target="_blank" rel="noopener">View on GitHub ↗</a>
+      </div>
+    </article>
+
+    <!-- ===== contact ===== -->
+    <div class="foot">
+      <div class="ct">
+        <div class="lbl">Get in touch</div>
+        <a href="mailto:2023414766@student.uitm.edu.my">2023414766@student.uitm.edu.my</a>
+      </div>
+      <div class="links">
+        <a href="https://github.com/kimiko-04" target="_blank" rel="noopener">GitHub ↗</a>
+        <a href="https://linkedin.com/in/mirza-haqimi" target="_blank" rel="noopener">LinkedIn ↗</a>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    // ----- theme -----
+    const root = document.documentElement;
+    const label = document.getElementById("themeLabel");
+
+    function safeGet(k){ try { return localStorage.getItem(k); } catch(e){ return null; } }
+    function safeSet(k,v){ try { localStorage.setItem(k,v); } catch(e){} }
+
+    function applyTheme(t){
+      root.setAttribute("data-theme", t);
+      // button offers the *other* mode
+      label.textContent = (t === "dark") ? "Light" : "Dark";
+    }
+
+    // initial: saved choice → else system preference
+    const saved = safeGet("theme");
+    const systemDark = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
+    applyTheme(saved || (systemDark ? "dark" : "light"));
+
+    document.getElementById("themeToggle").addEventListener("click", () => {
+      const next = root.getAttribute("data-theme") === "dark" ? "light" : "dark";
+      applyTheme(next);
+      safeSet("theme", next);
+    });
+
+    // ----- slideshow -----
+    document.querySelectorAll(".slideshow").forEach(ss => {
+      const imgs  = ss.querySelectorAll(".frame img");
+      const dots  = ss.querySelectorAll(".slide-dots button");
+      const prev  = ss.querySelector(".slide-arrow.prev");
+      const next  = ss.querySelector(".slide-arrow.next");
+      let cur = 0, timer;
+
+      function go(n) {
+        imgs[cur].classList.remove("active");
+        dots[cur].classList.remove("active");
+        cur = (n + imgs.length) % imgs.length;
+        imgs[cur].classList.add("active");
+        dots[cur].classList.add("active");
+        clearInterval(timer);
+        timer = setInterval(() => go(cur + 1), 3500);
+      }
+
+      prev.addEventListener("click", () => go(cur - 1));
+      next.addEventListener("click", () => go(cur + 1));
+      dots.forEach((d, i) => d.addEventListener("click", () => go(i)));
+      timer = setInterval(() => go(cur + 1), 3500);
+    });
+
+    // ----- reveal on scroll -----
+    const io = new IntersectionObserver((es)=>{
+      es.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add("in"); io.unobserve(e.target);} });
+    }, { threshold:0.1 });
+    document.querySelectorAll(".reveal").forEach(el=>io.observe(el));
+  </script>
+</body>
+</html>
+
+
